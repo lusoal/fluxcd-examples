@@ -12,7 +12,7 @@ spec:
   releaseName: app1
   targetNamespace: app1
   storageNamespace: app1
-  interval: 10m0s
+  interval: 10s
   chart:
     spec:
       chart: hello-world
