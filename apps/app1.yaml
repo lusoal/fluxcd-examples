@@ -15,7 +15,7 @@ spec:
   interval: 10m0s
   chart:
     spec:
-      chart: examples/hello-world
+      chart: hello-world
       # version: 5.9.2
       sourceRef:
         kind: HelmRepository
