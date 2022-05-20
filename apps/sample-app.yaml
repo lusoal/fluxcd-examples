@@ -1,0 +1,96 @@
+# Flux Specific manifests for image reconciliation
+apiVersion: image.toolkit.fluxcd.io/v1alpha1
+kind: ImageRepository
+metadata:
+  name: sample-app
+  namespace: flux-system
+spec:
+  image: 650470201566.dkr.ecr.us-east-1.amazonaws.com/sample-app
+  interval: 1m0s
+---
+# Then, use the CRD ImagePolicy to specify which version you want to track.
+apiVersion: image.toolkit.fluxcd.io/v1alpha1
+kind: ImagePolicy
+metadata:
+  name: sample-app
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: sample-app # Reference from above manifest
+  policy:
+    semver:
+      range: '>= 1.0.0 <2.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1alpha1
+kind: ImageUpdateAutomation
+metadata:
+  name: sample-app
+  namespace: flux-system
+spec:
+  checkout:
+    branch: main
+    gitRepositoryRef:
+      name: flux-system
+  commit:
+    authorEmail: fluxcdbot@amazon.com
+    authorName: fluxcdbot
+    messageTemplate: 'update image'
+  interval: 1m0s
+  update:
+    strategy: Setters
+---
+# Application Specific manifests
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sample-app
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: sample-app
+  name: sample-app
+  namespace: sample-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sample-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: sample-app
+    spec:
+      containers:
+      - image: 650470201566.dkr.ecr.us-east-1.amazonaws.com/sample-app:1.0.0 # {"$imagepolicy": "flux-system:sample-app"}
+        name: sample-app
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "256m"
+          limits:
+            memory: "512Mi"
+            cpu: "512m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: sample-app
+  name: sample-app
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: sample-app
+  type: LoadBalancer
