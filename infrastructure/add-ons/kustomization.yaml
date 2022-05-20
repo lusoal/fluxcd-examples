@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - metric-server.yaml
   - cluster-autoscaler.yaml
+  - load-balancer-controller.yaml
