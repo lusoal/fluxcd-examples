@@ -43,7 +43,7 @@ spec:
     push:
       branch: main
   update:
-    path: ./clusters/my-cluster
+    path: ./apps
     strategy: Setters
 ---
 # Application Specific manifests
