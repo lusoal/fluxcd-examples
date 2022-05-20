@@ -6,8 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   releaseName: aws-load-balancer-controller
-  targetNamespace: aws-system
-  storageNamespace: aws-system
+  targetNamespace: kube-system
+  storageNamespace: kube-system
   interval: 10m0s
   chart:
     spec:
