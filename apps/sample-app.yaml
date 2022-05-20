@@ -86,6 +86,7 @@ metadata:
   labels:
     app: sample-app
   name: sample-app
+  namespace: sample-app
 spec:
   ports:
   - port: 80
