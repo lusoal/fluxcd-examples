@@ -49,7 +49,7 @@ gitops:
       owner: lusoal
       repository: fluxcd-examples
       branch: main
-      path: ./clusters/my-cluster/flux-system/
+      path: ./clusters/my-cluster/
       namespace: flux-system
 managedNodeGroups:
   - name: sandbox-amd64-workers
