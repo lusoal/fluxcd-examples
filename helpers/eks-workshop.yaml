@@ -48,13 +48,13 @@ gitops:
     flags:
       owner: lusoal
       repository: fluxcd-examples
-      branch: demo
+      branch: main
       path: ./clusters/my-cluster/flux-system/
       namespace: flux-system
 managedNodeGroups:
   - name: sandbox-amd64-workers
     instanceType: m5.large
     desiredCapacity: 3
-    minSize: 2
+    minSize: 3
     maxSize: 5
     privateNetworking: true
