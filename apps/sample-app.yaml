@@ -75,7 +75,7 @@ spec:
         app: sample-app
     spec:
       containers:
-      - image: 650470201566.dkr.ecr.us-east-1.amazonaws.com/sample-app:1.3.0 # {"$imagepolicy": "flux-system:sample-app"}
+      - image: 650470201566.dkr.ecr.us-east-1.amazonaws.com/sample-app:1.4.0 # {"$imagepolicy": "flux-system:sample-app"}
         name: sample-app
         ports:
         - containerPort: 8080
