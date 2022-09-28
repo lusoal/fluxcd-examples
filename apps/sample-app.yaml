@@ -79,7 +79,7 @@ spec:
         name: sample-app
         env:
         - name: AMBIENTE
-          value: TechSummit
+          value: DEV
         ports:
         - containerPort: 8080
         resources:
